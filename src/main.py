@@ -1,17 +1,14 @@
 import tkinter as tk
 
-if __package__:
-    from src.app import create_window
-    from src.animation import get_shape_points
-else:
-    from app import create_window
-    from animation import get_shape_points
+from app import create_window
+from animation import get_shape_points
 
-root, canvas = create_window()
+root, canvas = create_window()  # главное окно и холст для рисования.
 
-progress = 0
-direction = 1
+progress = 0  # 0 - круг.
+direction = 1  # 1 - треугольник
 
+# анимации изменения фигуры от круга к треугольнику.
 def animate():
     global progress, direction
 
@@ -20,8 +17,13 @@ def animate():
     points = get_shape_points(width, height, progress)
 
     canvas.delete("shape")
-    canvas.create_polygon(*points, fill="#dddddd", outline="black",
-                          width=5, tags="shape")
+    canvas.create_polygon(
+        *points,
+        fill="#dddddd",
+        outline="black",
+        width=5,
+        tags="shape",
+    )
 
     progress += direction * 0.01
     if progress >= 1 or progress <= 0:
